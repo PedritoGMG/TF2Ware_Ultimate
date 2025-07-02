@@ -186,7 +186,7 @@ function OnStart()
 	foreach (player in Ware_Players)
 		KillPlayerSilently(player)
 
-	// HotFix | the text disappears when KillPlayerSilently
+	//Fix | the text disappears when KillPlayerSilently
 	Ware_CreateTimer(@() Ware_ShowMinigameText(null, format(" %s ", selected_spot.name)), 0.1)
 }
 

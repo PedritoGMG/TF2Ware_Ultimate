@@ -57,24 +57,15 @@ function CreateCharacter()
 	if (character_queue.len() == 0)
 		return CreateLastCharacter()
 
-	return CreateGenericCharacter()
+	return CreateGenericCharacter(character_queue.remove(0), false)
 }
 
 function CreateLastCharacter()
 {
-	local prop = CreateCharacterProp(character_selected)
-	prop.SetSolid(SOLID_BBOX)
-    prop.SetSize(Vector(-boxSize, -boxSize, -boxSize), Vector(boxSize, boxSize, boxSize))
-	return null
-}
-function CreateGenericCharacter()
-{
-	local prop = CreateCharacterProp(character_queue.remove(0))
-	prop.SetSolid(SOLID_NONE)
-	return 0.01
+	return CreateGenericCharacter(character_selected, true)
 }
 
-function CreateCharacterProp(name)
+function CreateGenericCharacter(name, isLast)
 {
     yPos += 0.1
 	local pos = Ware_MinigameLocation.center * 1.0
@@ -100,7 +91,14 @@ function CreateCharacterProp(name)
 	prop.SetAbsVelocity(vel)
 
 	props.append(prop)
-	return prop
+    if (!isLast)
+	{
+        prop.SetSolid(SOLID_NONE)
+        return 0.01
+    }
+    prop.SetSolid(SOLID_BBOX)
+    prop.SetSize(Vector(-boxSize, -boxSize, -boxSize), Vector(boxSize, boxSize, boxSize))
+    return null
 }
 
 
